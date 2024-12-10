@@ -11,7 +11,7 @@ struct set {
 };
 
 struct set *set_init(int turbo) {
-    struct set *new_set = (struct set *)malloc(sizeof(struct set));;
+    struct set *new_set = (struct set *)malloc(sizeof(struct set));
     if (!new_set) {
         return NULL;
     }
@@ -20,30 +20,34 @@ struct set *set_init(int turbo) {
     return new_set;
 }
 
-/* Insert num into set s. Return 0 for success and -1 for failure.
- * When item is already in the set s, do nothing and return 1. */
 int set_insert(struct set *s, int num) {
     if (!s) return -1;
     return tree_insert(s->tree, num);
 }
 
 int set_find(struct set *s, int num) {
-    /* ... SOME CODE MISSING HERE ... */
+    if (!s) return -1;
+    return tree_find(s->tree, num);
 }
 
 int set_remove(struct set *s, int num) {
-    /* ... SOME CODE MISSING HERE ... */
+    if (!s) return -1;
+    return tree_remove(s->tree, num);
 }
 
 void set_cleanup(struct set *s) {
-    /* ... SOME CODE MISSING HERE ... */
+    if (!s) return;
+    tree_cleanup(s->tree);
+    free(s);
 }
 
 void set_print(const struct set *s) {
-    /* ... SOME CODE MISSING HERE ... */
+    if (!s || !s->tree) return;
+    tree_print(s->tree);
+
 }
 
 int set_verify(const struct set *s) {
-    /* ... OPTIONALLY IMPLEMENT SET CHECKING HERE ... */
-    return 0;
+    if (!s || !s->tree) return -1;
+    return tree_check(s->tree);
 }
